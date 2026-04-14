@@ -4,26 +4,17 @@ const mongoose = require("mongoose")
 const port = 3000
 require("dotenv").config()
 
-
-app.get("/", (req, res) => {
-    res.send("Hello, Igor!")
-})
-
-app.get("/about", (req, res) => {
-    res.send("About Page")
-})
-
-app.get("/contact", (req, res) => {
-    res.send("Contact Page")
-})
-
-app.get("/home", (req, res) => {
-    res.send("Home Page")
-})
+const bookSchema = mongoose.Schema({    })
+BookModel = mongoose.model("Book", bookSchema)
 
 
 app.listen(3000, () => {
     console.log(`Server is running on http://localhost:${port}`)
+})
+
+app.post("/books", async(req, res) => {
+    const newBook = await BookModel.create(req.body)
+    res.status(201).json(newBook)
 })
 
 const connectionString = process.env.CONNECTION_STRING
