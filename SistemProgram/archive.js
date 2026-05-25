@@ -1,0 +1,1 @@
+console.log("Testando o arquivo archive.js");
