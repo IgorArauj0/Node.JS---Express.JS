@@ -52,7 +52,30 @@ function buildAccount() {
             message: 'Digite um nome para a sua conta:'
         }
     ]).then(answer => {
-     console.log(answer)
+        const accountName = answer['accountName']
+
+        console.info(accountName)
+
+        if(!fs.existsSync('acounts')) {
+            fs.mkdirSync('accounts')
+        }
+
+        if(fs.existsSync(`accounts/${accountName}.json`)){
+            console.log(chalk.backgroundColorNames.black('Esta conta já existe, escolha outro nome!'),
+         )
+
+         buildAccount()
+         return
+        }
+
+        fs.writeFileSync(`accounts/${accountName}.json` , 
+            '{"balance": 0}', 
+            function(err) {
+                console.log(err)
+            }),
+
+            console.log(chalk.green('Parabéns sua conta foi criada'))
+            operation()
     })
     .catch(err => console.log(err))
 
